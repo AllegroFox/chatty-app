@@ -4,27 +4,9 @@ import Message from "./Message.jsx";
 
 
 class MessageList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { messages: this.props.messages};
-    this.addMessage = this.addMessage.bind(this);
-  }
-
-  addMessage(text, user) {
-    const oldMessages = this.state.messages;
-    const newMessage = {
-      username: user,
-      content: text,
-      type: "incomingMessage",
-      id: generateRandomId()
-    };
-    console.log(newMessage);
-    const newMessages = [...oldMessages, newMessage];
-    this.setState({ messages: newMessages });
-  }
 
   render() {
-    const messageItems = this.state.messages.map(message => (
+    const messageItems = this.props.messages.map(message => (
       <Message message={message} key={message.id}/>
     ));
     return (
