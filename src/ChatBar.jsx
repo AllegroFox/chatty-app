@@ -6,20 +6,29 @@ class ChatBar extends Component {
 
     const onSubmit = event => {
       event.preventDefault();
-      const usernameInput = event.target.elements.username;
       const messageInput = event.target.elements.messageText;
       // Here, we call the function we were sent
-      this.props.addMessage(usernameInput.value, messageInput.value);
+      this.props.addMessage(messageInput.value);
 
       messageInput.value = "";
     };
 
+    const updateUser = event => {
+      event.preventDefault();
+      const usernameInput = event.target.elements.username;
+
+      this.props.changeUser(usernameInput.value);
+    };
+
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" name="username" className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser}/>
-      <input type="text" name="messageText" className="chatbar-message" placeholder="Type a message and press SEND" />
-      <input type="submit" className="chatbar-button" value="send"/>
-    </form>);
+    <span>
+      <form onSubmit={updateUser}>
+        <input type="text" name="username" className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser}/>
+      </form>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="messageText" className="chatbar-message" placeholder="Type a message and press ENTER" />
+      </form>
+    </span>)
   }
 }
 
