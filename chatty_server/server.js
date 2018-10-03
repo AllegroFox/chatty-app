@@ -2,6 +2,7 @@
 
 const express = require('express');
 const SocketServer = require('ws').Server;
+const uuidv1 = require('uuid/v1');
 
 // Set the port to 3001
 const PORT = 3001;
@@ -23,8 +24,12 @@ wss.on('connection', (ws) => {
 
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
+    Object.defineProperty(message, 'id', {
+      value: uuidv1(),
+      enumerable: true
+    });
 
-    console.log(`User ${message.username} says ${message.content}`)
+    console.log(`User ${message.username} says "${message.content}" - id: ${message.id}`);
 
 });
 
