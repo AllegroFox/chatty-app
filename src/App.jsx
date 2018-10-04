@@ -42,6 +42,7 @@ class App extends Component {
     const newMessage = {
       username: this.state.currentUser,
       content: text,
+      type: "postMessage"
     };
     this.socket.send(JSON.stringify(newMessage));
 
@@ -55,8 +56,22 @@ class App extends Component {
 
   }
 
-  changeUser(username) {
-    this.setState({currentUser: username});
+  changeUser(name) {
+    const userNotification = {
+      username: this.state.currentUser,
+      content: name,
+      type: "postNotification"
+    };
+    this.socket.send(JSON.stringify(userNotification));
+
+    this.socket.onmessage = event => {
+      const userNote = JSON.parse(event.data);
+      console.log(userNote);
+
+      const newNotification = [...this.state.messages, userNote];
+      this.setState({ messages: newNotification,
+                      currentUser: name });
+    }
   }
 
   render() {

@@ -22,7 +22,7 @@ body {
     .chatbar-message,
     .chatbar-username {
       border: 1px solid black;
-      display: inline-flex;
+      display: flex;
       height: 40px;
       line-height: 40px;
       margin: 5px;

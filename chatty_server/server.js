@@ -26,17 +26,45 @@ wss.on('connection', (ws) => {
 
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
-    Object.defineProperty(message, 'id', {
-      value: uuidv1(),
-      enumerable: true
-    });
+    switch(message.type) {
+      case "postMessage":
+        Object.defineProperties(message, {
+          'id': {
+          value: uuidv1(),
+          enumerable: true
+          },
+          'type': {
+            value: 'incomingMessage',
+            enumerable: true
+          }
+        });
+        break;
+      case "postNotification":
+        Object.defineProperties(message, {
+          'content': {
+            value: `has changed their name to ${message.content}`,
+            enumerable: true
+          },
+          'id': {
+          value: uuidv1(),
+          enumerable: true
+          },
+          'type': {
+            value: 'incomingNotification',
+            enumerable: true
+          }
+        });
+        break;
+      default:
+        throw new Error("Unknown message type: " + message.type);
+    }
 
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
       }
     });
-    console.log(`User ${message.username} says "${message.content}" - id: ${message.id}`);
+    console.log(`User ${message.username} says "${message.content}" - id: ${message.id}, type: ${message.type}`);
 
   });
 
