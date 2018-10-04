@@ -6,20 +6,24 @@ class Message extends Component {
     super(props);
   }
   render() {
+    if (this.props.messageType === "incomingMessage") {
     return (
       <div className="message" key={this.props.message.id}>
         <span className="message-username">{this.props.message.username}</span>
         <span className="message-content">{this.props.message.content}</span>
       </div>
+      );
+    } else {
+      return (
+      <div className="message" key={this.props.message.id}>
+        <span className="message-system">{this.props.message.username}</span>
+        <span className="message-system">{this.props.message.content}</span>
+      </div>
+      );
+    }
 
-    );
   }
-}
+
+};
 
 export default Message;
-
-
-
-// <div class="notification">
-//   <span class="notification-content">Anonymous1 changed their name to nomnom.</span>
-// </div>

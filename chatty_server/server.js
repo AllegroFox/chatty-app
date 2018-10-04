@@ -23,7 +23,7 @@ const wss = new SocketServer({ server });
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected', wss.clients.size);
-
+// Track the number of connected users
   let clientCount = {
     username: "System",
     content: wss.clients.size,
@@ -39,6 +39,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', function incoming(data) {
     let message = JSON.parse(data);
+  // Handle messages sent from the clients, depending on type
     switch(message.type) {
       case "postMessage":
         Object.defineProperties(message, {
@@ -55,7 +56,7 @@ wss.on('connection', (ws) => {
       case "postNotification":
         Object.defineProperties(message, {
           'content': {
-            value: `has changed their name to ${message.content}`,
+            value: ` has changed their name to ${message.content}`,
             enumerable: true
           },
           'id': {
@@ -88,6 +89,7 @@ wss.on('connection', (ws) => {
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected', wss.clients.size);
+    // Track the number of connected users
       let clientCount = {
         username: "System",
         content: wss.clients.size,

@@ -8,22 +8,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     // this is the *only* time you should assign directly to state:
-    this.state = { messages : [
-
-      {
-      username: "Bob",
-      content: "Has anyone seen my marbles?",
-      id: "1"
-    },
-    {
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-      id: "2"
-    }
-
-    ],
-    currentUser : "Anonymous",
-    usersOnline : ''};
+    this.state = { messages : [],
+                   currentUser : "Anonymous",
+                   usersOnline : ''};
 
     this.addMessage = this.addMessage.bind(this);
     this.changeuser = this.changeUser.bind(this);
@@ -37,6 +24,8 @@ class App extends Component {
     this.socket.onopen = function(event) {
       console.log(`Connected to server at localhost:3001`);
     };
+
+  // Handle all messages coming from the Websocket server
     this.socket.onmessage = event => {
       const message = JSON.parse(event.data);
 
@@ -46,7 +35,7 @@ class App extends Component {
 
           const clientCount = {
             username: "System",
-            content: `${message.content} user(s) connected`,
+            content: ` ${message.content} user(s) connected`,
             type: message.type,
             id: message.id
           };
@@ -54,7 +43,6 @@ class App extends Component {
           const newCount = [...this.state.messages, clientCount];
           this.setState({ messages: newCount,
                           usersOnline: message.content });
-
           break;
 
         case "incomingNotification":
@@ -64,7 +52,6 @@ class App extends Component {
           const newNotification = [...this.state.messages, message];
           this.setState({ messages: newNotification,
                           currentUser: message.name });
-
           break;
 
         case "incomingMessage":
@@ -79,11 +66,10 @@ class App extends Component {
         default:
           throw new Error("Unknown message type: " + message.type);
       }
-
     }
-
   }
 
+// addMessage and changeUser are called from the ChatBar input
   addMessage(text) {
     const newMessage = {
       username: this.state.currentUser,
@@ -101,7 +87,6 @@ class App extends Component {
     };
     this.socket.send(JSON.stringify(userNotification));
   }
-
 
 
   render() {

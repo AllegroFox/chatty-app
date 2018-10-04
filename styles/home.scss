@@ -1,4 +1,4 @@
-/* Homepage Styling */
+/* App Styling */
 
 body {
       background: white;
@@ -26,7 +26,6 @@ body {
       height: 40px;
       line-height: 40px;
       margin: 5px;
-      padding: 0 9px;
     }
 
     .chatbar-message {
@@ -41,15 +40,14 @@ body {
       padding: 5px;
     }
 
-    .message.system {
+    .message-system {
       font-style: italic;
-      padding: 5px 20px;
+      padding: 5px;
     }
 
     .message-content,
     .message-username {
       overflow: hidden;
-      margin: 5px;
       padding: 0 10px;
     }
 
@@ -89,4 +87,5 @@ body {
       display: block;
       float: right;
       line-height: 60px;
+      font-weight: bold;
     }
