@@ -1,7 +1,7 @@
 {
-  "name": "chatty-app-boilerplate",
+  "name": "chatty-app-server",
   "version": "1.0.0",
-  "description": "Simple and lightweight Boilerplate for ReactJS projects",
+  "description": "WebSocket server for ChattyApp",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
@@ -19,8 +19,8 @@
     "edit",
     "webpack"
   ],
-  "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
-  "license": "MIT",
+  "author": "Emily McMinn",
+  "license": "",
   "bugs": {
     "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
   },
@@ -46,8 +46,6 @@
   },
   "dependencies": {
     "express": "4.16.3",
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
     "uuid": "^3.3.2",
     "ws": "6.0.0"
   }
