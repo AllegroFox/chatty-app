@@ -23,7 +23,7 @@ class ChatBar extends Component {
   return (
     <span className="chatbar">
       <form onSubmit={updateUser} className="chatbar-username">
-        <input type="text" name="username" className="message-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser}/>
+        <input type="text" name="username" className="message-username" placeholder="Your Name (Optional)" defaultValue={this.props.currentUser.username}/>
       </form>
       <form onSubmit={onSubmit} className="chatbar-message">
         <input type="text" name="messageText" className="message-content" placeholder="Type a message and press ENTER" />

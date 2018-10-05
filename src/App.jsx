@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     // this is the *only* time you should assign directly to state:
     this.state = { messages : [],
-                   currentUser : "Anonymous",
+                   currentUser : {username: "Anonymous", color: "black"},
                    usersOnline : ''};
 
     this.addMessage = this.addMessage.bind(this);
@@ -72,7 +72,7 @@ class App extends Component {
 // addMessage and changeUser are called from the ChatBar input
   addMessage(text) {
     const newMessage = {
-      username: this.state.currentUser,
+      username: this.state.currentUser.username,
       content: text,
       type: "postMessage"
     };
@@ -81,7 +81,7 @@ class App extends Component {
 
   changeUser(name) {
     const userNotification = {
-      username: this.state.currentUser,
+      username: this.state.currentUser.username,
       content: name,
       type: "postNotification"
     };
